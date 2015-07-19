@@ -1,6 +1,0 @@
-[submodule "plugins/pixi.js"]
-	path = plugins/pixi.js
-	url = https://github.com/GoodBoyDigital/pixi.js.git
-[submodule "plugins/scaleToWindow"]
-	path = plugins/scaleToWindow
-	url = git@github.com:kittykatattack/scaleToWindow.git
