@@ -19,3 +19,13 @@
 [submodule "library/plugins/pixi.js"]
 	path = library/plugins/pixi.js
 	url = https://github.com/pixijs/pixi.js
+[submodule "library/tink"]
+	path = library/tink
+  url = https://github.com/kittykatattack/tink
+[submodule "library/bump"]
+  path = library/bump
+	url = git@github.com:kittykatattack/bump.git
+  
+[submodule "library/contain"]
+	path = library/contain
+	url = https://github.com/kittykatattack/contain

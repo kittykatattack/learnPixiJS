@@ -4,6 +4,7 @@
 var Container = PIXI.Container,
     autoDetectRenderer = PIXI.autoDetectRenderer,
     loader = PIXI.loader,
+    resources = PIXI.loader.resources,
     Sprite = PIXI.Sprite;
 
 //Create a Pixi stage and renderer and add the
@@ -22,7 +23,7 @@ loader.add("images/cat64x64.png").load(setup);
 function setup() {
 
   //Create the `cat` sprite from the texture
-  var cat = new Sprite.fromImage("images/cat64x64.png");
+  var cat = new Sprite(resources["images/cat64x64.png"].texture);
 
   //Position the sprite and change its width and height
   cat.x = 96;

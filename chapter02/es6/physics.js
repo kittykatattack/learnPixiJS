@@ -2,6 +2,7 @@
 let Container = PIXI.Container,
   autoDetectRenderer = PIXI.autoDetectRenderer,
   loader = PIXI.loader,
+  resources = PIXI.loader.resources,
   Sprite = PIXI.Sprite;
 
 //Create a Pixi stage and renderer 
@@ -24,7 +25,7 @@ let pixie, state;
 function setup() {
 
   //Create the `pixie` sprite 
-  pixie = new Sprite.fromImage("images/pixie96x48.png");
+  pixie = new Sprite(resources["images/pixie96x48.png"]);
 
   //Center the sprite
   pixie.x = renderer.view.width / 2 - pixie.width / 2;

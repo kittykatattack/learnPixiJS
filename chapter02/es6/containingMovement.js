@@ -2,6 +2,7 @@
 let Container = PIXI.Container,
   autoDetectRenderer = PIXI.autoDetectRenderer,
   loader = PIXI.loader,
+  resources = PIXI.loader.resources,
   Sprite = PIXI.Sprite;
 
 //Create a Pixi stage and renderer 
@@ -24,7 +25,7 @@ let pixie, state;
 function setup() {
 
   //Create the `pixie` sprite 
-  pixie = new Sprite.fromImage("images/pixie96x48.png");
+  pixie = new Sprite(resources["images/pixie96x48.png"]);
 
   //Center the sprite
   pixie.x = renderer.view.width / 2 - pixie.width / 2;
@@ -165,10 +166,14 @@ function play() {
   if (collision) {
 
     //Reverse the sprite's `vx` value if it hits the left or right
-    if (collision.has("left") || collision.has("right")) pixie.vx = -pixie.vx;
+    if (collision.has("left") || collision.has("right")){
+      pixie.vx = -pixie.vx;
+    }
 
     //Reverse the sprite's `vy` value if it hits the top or bottom
-    if (collision.has("top") || collision.has("bottom")) pixie.vy = -pixie.vy;
+    if (collision.has("top") || collision.has("bottom")){
+      pixie.vy = -pixie.vy;
+    }
 
     //Optionally display the values that the `collision` set contains
     collision.forEach(item => console.log(item));

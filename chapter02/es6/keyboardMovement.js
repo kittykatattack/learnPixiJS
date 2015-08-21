@@ -2,6 +2,7 @@
 let Container = PIXI.Container,
   autoDetectRenderer = PIXI.autoDetectRenderer,
   loader = PIXI.loader,
+  resources = PIXI.loader.resources,
   Sprite = PIXI.Sprite;
 
 //Create a Pixi stage and renderer 
@@ -24,7 +25,7 @@ let pixie, state;
 function setup() {
 
   //Create the `pixie` sprite 
-  pixie = new Sprite.fromImage("images/pixie96x48.png");
+  pixie = new Sprite(resources["images/pixie96x48.png"]);
 
   //Center the sprite
   pixie.x = renderer.view.width / 2 - pixie.width / 2;
@@ -44,7 +45,7 @@ function setup() {
       down = keyboard(40);
 
   //Left arrow key `press` method
-  left.press = function() {
+  left.press = () => {
 
     //Change the pixie.s velocity when the key is pressed
     pixie.vx = -5;
@@ -52,7 +53,7 @@ function setup() {
   };
 
   //Left arrow key `release` method
-  left.release = function() {
+  left.release = () => {
 
     //If the left arrow has been released, and the right arrow isn't down,
     //and the pixie isn't moving vertically, stop the sprite from moving

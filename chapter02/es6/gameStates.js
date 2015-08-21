@@ -2,6 +2,7 @@
 let Container = PIXI.Container,
   autoDetectRenderer = PIXI.autoDetectRenderer,
   loader = PIXI.loader,
+  resources = PIXI.loader.resources,
   Sprite = PIXI.Sprite;
 
 //Create a Pixi stage and renderer and add the 
@@ -28,7 +29,7 @@ let state = play;
 function setup() {
 
   //Create the `pixie` sprite 
-  pixie = new Sprite.fromImage("images/pixie96x48.png");
+  pixie = new Sprite(resources["images/pixie96x48.png"]);
 
   //Position the sprite at the top left corner
   pixie.x = 0;

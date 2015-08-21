@@ -12,7 +12,9 @@ PIXI.loader
 function setup() {
 
   //Create the sprite from the texture
-  let pixie = new PIXI.Sprite.fromImage("images/pixie96x48.png");
+  let pixie = new PIXI.Sprite(
+    PIXI.loader.resources["images/pixie96x48.png"].texture
+  );
 
   //Add the sprite to the stage
   stage.addChild(pixie);
@@ -21,13 +23,14 @@ function setup() {
   renderer.render(stage);
 }
 
-//You can alternatively use alias to stand for Pixi objects and
+//You can alternatively use aliases to stand for Pixi objects and
 //methods. Here's what the code above looks like using aliases:
 /*
 //Create the aliases
 let Container = PIXI.Container,
     autoDetectRenderer = PIXI.autoDetectRenderer,
     loader = PIXI.loader,
+    resources = PIXI.loader.resources,
     Sprite = PIXI.Sprite;
 
 //Create the stage and renderer
@@ -44,7 +47,7 @@ loader
 function setup() {
 
   //Create the sprite from the texture
-  let pixie = new Sprite.fromImage("images/pixie96x48.png");
+  let pixie = new PIXI.Sprite(resources["images/pixie96x48.png"].texture);
 
   //Add the sprite to the stage
   stage.addChild(pixie);
