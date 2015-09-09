@@ -1,9 +1,6 @@
 [submodule "library/charm"]
 	path = library/charm
 	url = https://github.com/kittykatattack/charm
-[submodule "library/dust"]
-	path = library/dust
-	url = https://github.com/kittykatattack/dust
 [submodule "library/spriteUtilities"]
 	path = library/spriteUtilities
 	url = https://github.com/kittykatattack/spriteUtilities
