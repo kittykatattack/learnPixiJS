@@ -26,3 +26,6 @@
 [submodule "library/contain"]
 	path = library/contain
 	url = https://github.com/kittykatattack/contain
+[submodule "library/dust"]
+	path = library/dust
+	url = git@github.com:kittykatattack/dust.git
