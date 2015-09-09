@@ -26,22 +26,34 @@ loader
 let state = play;
 
 //Define any variables that are used in more than one function
-let particles;
+let su, d;
 
 function setup() {
 
-  //Intialize PixiDust
-  particles = new PixiDust();
+  //Create a new instance of SpriteUtilities
+  su = new SpriteUtilities(PIXI);  
 
-  let stars = new ParticleContainer(15000,{alpha: true, scale: true, rotation: true, uvs: true});
+  //Intialize Dust
+  d = new Dust(PIXI);
+
+  let stars = new ParticleContainer(
+    15000,
+    {
+      alpha: true, 
+      scale: true, 
+      rotation: true, 
+      uvs: true
+    }
+  );
+
   stage.addChild(stars);
 
   //Create star particles
-  let particleStream = particles.emitter(
+  let particleStream = d.emitter(
     100,
-    () => particles.create(
+    () => d.create(
       128, 128,
-      () => sprite("images/star.png"),
+      () => su.sprite("images/star.png"),
       stars,
       30,
       0.1,
@@ -66,13 +78,14 @@ function gameLoop(){
   //Run the current state
   state();
 
+  //Update the particles
+  d.update();
+
   //Render the stage
   renderer.render(stage);
 }
 
 function play() {
 
-  //Update the particles
-  particles.update();
 }
 

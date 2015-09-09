@@ -57,18 +57,22 @@ function setup() {
   */
 
   //Or, better yet, you can use the `filmstrip` utility function
-  //let textures = filmstrip("images/pixieFrames.png", 48, 32);
+  /*
+  let su = new SpriteUtilities(PIXI);
+  let textures = su.filmstrip("images/pixieFrames.png", 48, 32);
+  */
 
   //But if you need to use a subset of frames from the tileset, use
   //the `frames` utility function to specify the x/y positions of the
   //frames to use
-  /*
-  let textures = frames(
+  /* 
+  let textures = su.frames(
     "images/pixieFrames.png",
     [[0,0],[48,0],[96,0]],
     48, 32
   );
   */
+  
   
   //Create the `MovieClip` sprite using the `textures` array
   pixie = new MovieClip(textures);

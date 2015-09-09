@@ -2,6 +2,7 @@
 let Container = PIXI.Container,
   autoDetectRenderer = PIXI.autoDetectRenderer,
   loader = PIXI.loader,
+  resources = PIXI.loader.resources,
   Sprite = PIXI.Sprite,
   Text = PIXI.Text;
 
@@ -21,12 +22,15 @@ loader
   .load(setup);
 
 //Define any variables that are used in more than one function
-let cat, box, message, state;
+let cat, box, message, state, b;
 
 function setup() {
 
+  //Create and instance of Bump
+  b = new Bump(PIXI);
+
   //Create the `cat` sprite 
-  cat = new Sprite.fromImage("images/cat64x64.png");
+  cat = new Sprite(resources["images/cat64x64.png"].texture);
 
   //Center the sprite
   cat.x = 16;
@@ -40,7 +44,7 @@ function setup() {
   stage.addChild(cat);
 
   //Create the `box` sprite and add it to the stage
-  box = new Sprite.fromImage("images/box64x64.png");
+  box = new Sprite(resources["images/box64x64.png"].texture);
   box.x = renderer.view.width / 2 - box.width / 2;
   box.y = renderer.view.height / 2 - box.height / 2;
   stage.addChild(box);
@@ -137,7 +141,7 @@ function play() {
   cat.y += cat.vy;
 
   //Check for a collision between the cat and the box
-  if (hitTestRectangle(cat, box)) {
+  if (b.hitTestRectangle(cat, box)) {
 
     //If there's a collision, change the message text and tint the box red
     message.text = "hit!";
@@ -148,36 +152,6 @@ function play() {
     message.text = "No collision...";
     box.tint = 0xFFFFFF;
   }
-}
-
-//The hitTestRectangle function
-function hitTestRectangle(r1, r2) {
-
-  //Calculate `centerX` and `centerY` properties on the sprites
-  r1.centerX = r1.x + r1.width / 2;
-  r1.centerY = r1.y + r1.height / 2;
-  r2.centerX = r2.x + r2.width / 2;
-  r2.centerY = r2.y + r2.height / 2;
-
-  //Calculate the `halfWidth` and `halfHeight` properties of the sprites
-  r1.halfWidth = r1.width / 2;
-  r1.halfHeight = r1.height / 2;
-  r2.halfWidth = r2.width / 2;
-  r2.halfHeight = r2.height / 2;
-
-  //Create a `collision` variable that will tell us
-  //if a collision is occurring
-  let collision = false;
-
-  //Check whether the shapes of the sprites are overlapping. If they
-  //are, set `collision` to `true`
-  if (Math.abs(r1.centerX - r2.centerX) < r1.halfWidth + r2.halfWidth
-  && Math.abs(r1.centerY - r2.centerY) < r1.halfHeight + r2.halfHeight) {
-    collision = true;
-  }
-
-  //Return the value of `collision` back to the main program
-  return collision;
 }
 
 //The `keyboard` helper function

@@ -34,9 +34,13 @@ var state = undefined,
     dungeon = undefined,
     door = undefined,
     gameOverScene = undefined,
-    enemies = undefined;
+    enemies = undefined,
+    su = undefined;
 
 function setup() {
+
+  //Create a new instance of SpriteUtilities
+  su = new SpriteUtilities(PIXI);
 
   //Make the game scene and add it to the stage
   gameScene = new Container();
@@ -45,17 +49,17 @@ function setup() {
   //Make the sprites and add them to the `gameScene`
 
   //Dungeon
-  dungeon = sprite("dungeon.png");
+  dungeon = su.sprite("dungeon.png");
   gameScene.addChild(dungeon);
 
   //Door
-  door = sprite("door.png");
+  door = su.sprite("door.png");
   door.position.set(32, 0);
   gameScene.addChild(door);
 
   //Adventuress
-  var frames = filmstrip("images/adventuress.png", 32, 32);
-  adventuress = sprite(frames);
+  var frames = su.filmstrip("images/adventuress.png", 32, 32);
+  adventuress = su.sprite(frames);
   adventuress.x = 68;
   adventuress.y = gameScene.height / 2 - adventuress.height / 2;
   adventuress.vx = 0;
@@ -75,7 +79,7 @@ function setup() {
   };
 
   //Treasure
-  treasure = sprite("treasure.png");
+  treasure = su.sprite("treasure.png");
   treasure.x = gameScene.width - treasure.width - 48;
   treasure.y = gameScene.height / 2 - treasure.height / 2;
   gameScene.addChild(treasure);
@@ -94,7 +98,7 @@ function setup() {
   for (var i = 0; i < numberOfBlobs; i++) {
 
     //Make a blob
-    var blob = sprite("blob.png");
+    var blob = su.sprite("blob.png");
 
     //Space each blob horizontally according to the `spacing` value.
     //`xOffset` determines the point from the left of the screen

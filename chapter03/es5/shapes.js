@@ -16,19 +16,15 @@ document.body.appendChild(renderer.view);
 renderer.view.style.border = "1px dashed black";
 renderer.backgroundColor = "0xFFFFFF";
 
-//load resources (images and fonts)
-loader.add("fonts/puzzler.ttf").load(setup);
-
-//Define any variables that are used in more than one function
-
 //Set the initial game state
 var state = play;
 
-function setup() {
+//Run the `setup` function
+setup();
 
-  /*
-   * All the code for this chapter goes here
-   */
+//Define any variables that are used in more than one function
+
+function setup() {
 
   //Rectangle
   var rectangle = new Graphics();

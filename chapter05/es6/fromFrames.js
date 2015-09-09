@@ -2,6 +2,7 @@
 let Container = PIXI.Container,
   autoDetectRenderer = PIXI.autoDetectRenderer,
   loader = PIXI.loader,
+  resources = PIXI.loader.resources,
   TextureCache = PIXI.utils.TextureCache,
   Texture = PIXI.Texture,
   Rectangle = PIXI.Rectangle,
@@ -25,18 +26,28 @@ loader
 let state = play;
 
 //Define any variables that are used in more than one function
-let pixie;
+let pixie, su, id;
 
 function setup() {
 
+  //Create a new instance of SpriteUtilities
+  su = new SpriteUtilities(PIXI);
+
+  //Create an alias for the texture atlas frame ids
+  id = resources["images/pixieAtlas.json"].textures;
+
   //Create an array that references the frames you want to use
-  //let frames = ["pixie0.png", "pixie1.png", "pixie2.png"];
+  let frames = [
+    id["pixie0.png"], 
+    id["pixie1.png"], 
+    id["pixie2.png"]
+  ];
 
   //Use the custom `frameSeries` function to create the frames array
-  let frames = frameSeries(0, 2, "pixie", ".png");
+  //let frames = su.frameSeries(0, 2, "pixie", ".png");
 
   //Create a MoveClip from the frames
-  pixie = MovieClip.fromFrames(frames);
+  pixie = new MovieClip(frames);
 
   //Set the sprite's position and add it to the stage
   pixie.position.set(32, 32);
@@ -64,19 +75,5 @@ function gameLoop(){
 
 function play() {
 
-}
-
-function frameSeries(startNumber = 0, endNumber = 1, baseName = "", extension = "") {
-
-  //Create an array to store the frame names
-  let frames = [];
-
-  for (let i = startNumber; i < endNumber + 1; i++) {
-    let frame = baseName + i + extension;
-    frames.push(frame);
-  }
- 
-  //Return the array of frames
-  return frames;
 }
 

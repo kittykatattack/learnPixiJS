@@ -26,12 +26,16 @@ loader.add("images/star.png").load(setup);
 var state = play;
 
 //Define any variables that are used in more than one function
-var particles = undefined;
+var su = undefined,
+    d = undefined;
 
 function setup() {
 
-  //Intialize PixiDust
-  particles = new PixiDust();
+  //Create a new instance of SpriteUtilities
+  su = new SpriteUtilities(PIXI);
+
+  //Intialize Dust
+  d = new Dust(PIXI);
 
   //Optionally add the particles to a high-perforamnce
   //`ParticleContainer`
@@ -44,8 +48,8 @@ function setup() {
   */
 
   //Create star particles
-  var stars = particles.create(128, 128, function () {
-    return sprite("images/star.png");
+  var stars = d.create(128, 128, function () {
+    return su.sprite("images/star.png");
   }, stage, 50);
 
   //The `create` function returns an array of all the
@@ -70,7 +74,7 @@ function gameLoop() {
 
 function play() {
 
-  //Update the particles
-  particles.update();
+  //Update Dust
+  d.update();
 }
 //# sourceMappingURL=particles.js.map

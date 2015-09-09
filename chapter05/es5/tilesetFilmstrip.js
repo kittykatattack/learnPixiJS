@@ -4,6 +4,7 @@
 var Container = PIXI.Container,
     autoDetectRenderer = PIXI.autoDetectRenderer,
     loader = PIXI.loader,
+    resources = PIXI.loader.resources,
     TextureCache = PIXI.utils.TextureCache,
     Texture = PIXI.Texture,
     Rectangle = PIXI.Rectangle,
@@ -25,15 +26,16 @@ loader.add("images/pixieFrames.png").load(setup);
 var state = play;
 
 //Define any variables that are used in more than one function
-var pixie = undefined;
+var pixie = undefined,
+    su = undefined;
 
 function setup() {
 
-  //Create an array that references the frames you want to use
-  //let frames = ["pixie0.png", "pixie1.png", "pixie2.png"];
+  //Create a new instance of SpriteUtilities
+  su = new SpriteUtilities(PIXI);
 
   //Use the custom `frameSeries` function to create the frames array
-  var frames = filmstrip("images/pixieFrames.png", 48, 32);
+  var frames = su.filmstrip("images/pixieFrames.png", 48, 32);
 
   //Create a MoveClip from the frames
   pixie = new MovieClip(frames);

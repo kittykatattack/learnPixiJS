@@ -26,20 +26,30 @@ loader.add("images/star.png").load(setup);
 var state = play;
 
 //Define any variables that are used in more than one function
-var particles = undefined;
+var su = undefined,
+    d = undefined;
 
 function setup() {
 
-  //Intialize PixiDust
-  particles = new PixiDust();
+  //Create a new instance of SpriteUtilities
+  su = new SpriteUtilities(PIXI);
 
-  var stars = new ParticleContainer(15000, { alpha: true, scale: true, rotation: true, uvs: true });
+  //Intialize Dust
+  d = new Dust(PIXI);
+
+  var stars = new ParticleContainer(15000, {
+    alpha: true,
+    scale: true,
+    rotation: true,
+    uvs: true
+  });
+
   stage.addChild(stars);
 
   //Create star particles
-  var particleStream = particles.emitter(100, function () {
-    return particles.create(128, 128, function () {
-      return sprite("images/star.png");
+  var particleStream = d.emitter(100, function () {
+    return d.create(128, 128, function () {
+      return su.sprite("images/star.png");
     }, stars, 30, 0.1, false, 3.14, 6.28, 16, 32, 2, 5);
   });
 
@@ -57,13 +67,12 @@ function gameLoop() {
   //Run the current state
   state();
 
+  //Update the particles
+  d.update();
+
   //Render the stage
   renderer.render(stage);
 }
 
-function play() {
-
-  //Update the particles
-  particles.update();
-}
+function play() {}
 //# sourceMappingURL=particleEmitter.js.map

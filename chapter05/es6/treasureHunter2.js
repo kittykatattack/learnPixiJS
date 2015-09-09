@@ -24,9 +24,12 @@ loader
 //Define any variables that are used in more than one function
 let state, player, treasure, blobs, chimes, exit, adventuress,
     healthBar, message, gameScene, dungeon, door,
-    gameOverScene, enemies;
+    gameOverScene, enemies, su;
 
 function setup() {
+
+  //Create a new instance of SpriteUtilities
+  su = new SpriteUtilities(PIXI);
 
   //Make the game scene and add it to the stage
   gameScene = new Container();
@@ -35,17 +38,17 @@ function setup() {
   //Make the sprites and add them to the `gameScene`
 
   //Dungeon
-  dungeon = sprite("dungeon.png");
+  dungeon = su.sprite("dungeon.png");
   gameScene.addChild(dungeon);
 
   //Door
-  door = sprite("door.png"); 
+  door = su.sprite("door.png"); 
   door.position.set(32, 0);
   gameScene.addChild(door);
 
   //Adventuress
-  let frames = filmstrip("images/adventuress.png", 32, 32);  
-  adventuress = sprite(frames);
+  let frames = su.filmstrip("images/adventuress.png", 32, 32);  
+  adventuress = su.sprite(frames);
   adventuress.x = 68;
   adventuress.y = gameScene.height / 2 - adventuress.height / 2;
   adventuress.vx = 0;
@@ -65,7 +68,7 @@ function setup() {
   };
 
   //Treasure
-  treasure = sprite("treasure.png");
+  treasure = su.sprite("treasure.png");
   treasure.x = gameScene.width - treasure.width - 48;
   treasure.y = gameScene.height / 2 - treasure.height / 2;
   gameScene.addChild(treasure);
@@ -84,7 +87,7 @@ function setup() {
   for (let i = 0; i < numberOfBlobs; i++) {
 
     //Make a blob
-    let blob = sprite("blob.png");
+    let blob = su.sprite("blob.png");
 
     //Space each blob horizontally according to the `spacing` value.
     //`xOffset` determines the point from the left of the screen
@@ -159,7 +162,7 @@ function setup() {
       down = keyboard(40);
 
   //Left arrow key `press` method
-  left.press = function() {
+  left.press = () => {
 
     //Play the sprite's `walkLeft` sequence and set the elf's velocity
     adventuress.playAnimation(adventuress.states.walkLeft);
@@ -168,7 +171,7 @@ function setup() {
   };
 
   //Left arrow key `release` method
-  left.release = function() {
+  left.release = () => {
 
     //If the left arrow has been released, and the right arrow isn't down,
     //and the adventuress isn't moving vertically, stop the sprite from moving

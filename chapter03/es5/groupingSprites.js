@@ -4,6 +4,7 @@
 var Container = PIXI.Container,
     autoDetectRenderer = PIXI.autoDetectRenderer,
     loader = PIXI.loader,
+    resources = PIXI.loader.resources,
     Sprite = PIXI.Sprite,
     Graphics = PIXI.Graphics;
 
@@ -30,16 +31,19 @@ var cat = undefined,
 
 function setup() {
 
+  //An alias for the texture atlas frame ids
+  var id = resources["images/animals.json"].textures;
+
   //The cat
-  cat = new Sprite.fromFrame("cat.png");
+  cat = new Sprite(id["cat.png"]);
   cat.position.set(0, 0);
 
   //The hedgehog
-  hedgehog = new Sprite.fromFrame("hedgehog.png");
+  hedgehog = new Sprite(id["hedgehog.png"]);
   hedgehog.position.set(32, 32);
 
   //The tiger
-  tiger = new Sprite.fromFrame("tiger.png");
+  tiger = new Sprite(id["tiger.png"]);
   tiger.position.set(64, 64);
 
   //A container for the animals
@@ -100,4 +104,6 @@ function gameLoop() {
 }
 
 function play() {}
+
+//Not required in this example
 //# sourceMappingURL=groupingSprites.js.map

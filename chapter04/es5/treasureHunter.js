@@ -4,6 +4,7 @@
 var Container = PIXI.Container,
     autoDetectRenderer = PIXI.autoDetectRenderer,
     loader = PIXI.loader,
+    resources = PIXI.loader.resources,
     Sprite = PIXI.Sprite,
     Text = PIXI.Text,
     Graphics = PIXI.Graphics;
@@ -23,9 +24,9 @@ loader.add("images/treasureHunter.json").load(setup);
 //Define any variables that are used in more than one function
 var state = undefined,
     player = undefined,
+    b = undefined,
     treasure = undefined,
     blobs = undefined,
-    chimes = undefined,
     exit = undefined,
     explorer = undefined,
     healthBar = undefined,
@@ -34,9 +35,15 @@ var state = undefined,
     dungeon = undefined,
     door = undefined,
     gameOverScene = undefined,
-    enemies = undefined;
+    id = undefined;
 
 function setup() {
+
+  //Create an instance of Bump, the collision library
+  b = new Bump(PIXI);
+
+  //An alias for the texture atlas frame ids
+  id = resources["images/treasureHunter.json"].textures;
 
   //Make the game scene and add it to the stage
   gameScene = new Container();
@@ -45,16 +52,16 @@ function setup() {
   //Make the sprites and add them to the `gameScene`
 
   //Dungeon
-  dungeon = new Sprite.fromFrame("dungeon.png");
+  dungeon = new Sprite(id["dungeon.png"]);
   gameScene.addChild(dungeon);
 
   //Door
-  door = new Sprite.fromFrame("door.png");
+  door = new Sprite(id["door.png"]);
   door.position.set(32, 0);
   gameScene.addChild(door);
 
   //Explorer
-  explorer = new Sprite.fromFrame("explorer.png");
+  explorer = new Sprite(id["explorer.png"]);
   explorer.x = 68;
   explorer.y = gameScene.height / 2 - explorer.height / 2;
   explorer.vx = 0;
@@ -62,7 +69,7 @@ function setup() {
   gameScene.addChild(explorer);
 
   //Treasure
-  treasure = new Sprite.fromFrame("treasure.png");
+  treasure = new Sprite(id["treasure.png"]);
   treasure.x = gameScene.width - treasure.width - 48;
   treasure.y = gameScene.height / 2 - treasure.height / 2;
   gameScene.addChild(treasure);
@@ -81,7 +88,7 @@ function setup() {
   for (var i = 0; i < numberOfBlobs; i++) {
 
     //Make a blob
-    var blob = new Sprite.fromFrame("blob.png");
+    var blob = new Sprite(id["blob.png"]);
 
     //Space each blob horizontally according to the `spacing` value.
     //`xOffset` determines the point from the left of the screen
@@ -225,7 +232,7 @@ function gameLoop() {
 
 function play() {
 
-  //use the explorer's velocity to make it move
+  //Use the explorer's velocity to make it move
   explorer.x += explorer.vx;
   explorer.y += explorer.vy;
 
@@ -254,7 +261,7 @@ function play() {
 
     //Test for a collision. If any of the enemies are touching
     //the explorer, set `explorerHit` to `true`
-    if (hitTestRectangle(explorer, blob)) {
+    if (b.hitTestRectangle(explorer, blob)) {
       explorerHit = true;
     }
   });
@@ -274,7 +281,7 @@ function play() {
   }
 
   //Check for a collision between the explorer and the treasure
-  if (hitTestRectangle(explorer, treasure)) {
+  if (b.hitTestRectangle(explorer, treasure)) {
 
     //If the treasure is touching the explorer, center it over the explorer
     treasure.x = explorer.x + 8;
@@ -290,7 +297,7 @@ function play() {
 
   //If the explorer has brought the treasure to the exit,
   //end the game and display "You won!"
-  if (hitTestRectangle(treasure, door)) {
+  if (b.hitTestRectangle(treasure, door)) {
     state = end;
     message.text = "You won!";
   }
@@ -299,35 +306,6 @@ function play() {
 function end() {
   gameScene.visible = false;
   gameOverScene.visible = true;
-}
-
-//The hitTestRectangle function
-function hitTestRectangle(r1, r2) {
-
-  //Calculate `centerX` and `centerY` properties on the sprites
-  r1.centerX = r1.x + r1.width / 2;
-  r1.centerY = r1.y + r1.height / 2;
-  r2.centerX = r2.x + r2.width / 2;
-  r2.centerY = r2.y + r2.height / 2;
-
-  //Calculate the `halfWidth` and `halfHeight` properties of the sprites
-  r1.halfWidth = r1.width / 2;
-  r1.halfHeight = r1.height / 2;
-  r2.halfWidth = r2.width / 2;
-  r2.halfHeight = r2.height / 2;
-
-  //Create a `collision` variable that will tell us
-  //if a collision is occurring
-  var collision = false;
-
-  //Check whether the shapes of the sprites are overlapping. If they
-  //are, set `collision` to `true`
-  if (Math.abs(r1.centerX - r2.centerX) < r1.halfWidth + r2.halfWidth && Math.abs(r1.centerY - r2.centerY) < r1.halfHeight + r2.halfHeight) {
-    collision = true;
-  }
-
-  //Return the value of `collision` back to the main program
-  return collision;
 }
 
 //The `randomInt` helper function
@@ -343,6 +321,7 @@ function keyboard(keyCode) {
   key.isUp = true;
   key.press = undefined;
   key.release = undefined;
+
   //The `downHandler`
   key.downHandler = function (event) {
     if (event.keyCode === key.code) {

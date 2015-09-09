@@ -4,6 +4,7 @@
 var Container = PIXI.Container,
     autoDetectRenderer = PIXI.autoDetectRenderer,
     loader = PIXI.loader,
+    resources = PIXI.loader.resources,
     TextureCache = PIXI.utils.TextureCache,
     Texture = PIXI.Texture,
     Rectangle = PIXI.Rectangle,
@@ -25,19 +26,23 @@ loader.add("images/adventuress.png").load(setup);
 var state = play;
 
 //Define any variables that are used in more than one function
-var adventuress = undefined;
+var adventuress = undefined,
+    su = undefined;
 
 function setup() {
+
+  //Create a new instance of SpriteUtilities
+  su = new SpriteUtilities(PIXI);
 
   //Create an array that references the frames you want to use
   //let frames = ["adventuress0.png", "adventuress1.png", "adventuress2.png"];
 
   //Use the custom `frameSeries` function to create the frames array
-  var frames = filmstrip("images/adventuress.png", 32, 32);
+  var frames = su.filmstrip("images/adventuress.png", 32, 32);
 
   //Create a MoveClip from the frames
   //adventuress = new MovieClip(frames);
-  adventuress = sprite(frames);
+  adventuress = su.sprite(frames);
   adventuress.vx = 0;
   adventuress.vy = 0;
 
@@ -69,7 +74,7 @@ function setup() {
 
   /*
   //Left arrow key `press` method
-  left.press = function() {
+  left.press = () => {
      //Show the left state
     adventuress.show(adventuress.states.left);
      //Change the adventuress's velocity when the key is pressed
@@ -77,7 +82,7 @@ function setup() {
     adventuress.vy = 0;
   };
    //Left arrow key `release` method
-  left.release = function() {
+  left.release = () => {
      //If the left arrow has been released, and the right arrow isn't down,
     //and the adventuress isn't moving vertically, stop the sprite from moving
     //by setting its velocity to zero
@@ -123,7 +128,7 @@ function setup() {
   //Left arrow key `press` method
   left.press = function () {
 
-    //Play the sprite's `walkLeft` sequence and set the elf's velocity
+    //Play the sprite's `walkLeft` sequence
     adventuress.playAnimation(adventuress.states.walkLeft);
     adventuress.vx = -5;
     adventuress.vy = 0;
