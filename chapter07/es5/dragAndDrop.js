@@ -40,7 +40,7 @@ var t = undefined,
 function setup() {
 
   //Create a new instance of Tink
-  t = new Tink(renderer.view);
+  t = new Tink(PIXI, renderer.view);
 
   //Get a reference to the texture atlas id's
   id = resources["images/animals.json"].textures;

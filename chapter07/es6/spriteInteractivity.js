@@ -27,7 +27,7 @@ setup();
 function setup() {
 
   //Create a new instance of Tink
-  t = new Tink(renderer.view);
+  t = new Tink(PIXI, renderer.view);
 
   //Make a rectangle and circle
   rectangle = new Graphics();
