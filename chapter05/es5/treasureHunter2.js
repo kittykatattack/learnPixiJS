@@ -35,12 +35,16 @@ var state = undefined,
     door = undefined,
     gameOverScene = undefined,
     enemies = undefined,
-    su = undefined;
+    su = undefined,
+    b = undefined;
 
 function setup() {
 
   //Create a new instance of SpriteUtilities
   su = new SpriteUtilities(PIXI);
+
+  //Create a new instance of Bump
+  b = new Bump();
 
   //Make the game scene and add it to the stage
   gameScene = new Container();
@@ -279,7 +283,7 @@ function play() {
 
     //Test for a collision. If any of the enemies are touching
     //the adventuress, set `adventuressHit` to `true`
-    if (hitTestRectangle(adventuress, blob)) {
+    if (b.hitTestRectangle(adventuress, blob)) {
       adventuressHit = true;
     }
   });
@@ -299,7 +303,7 @@ function play() {
   }
 
   //Check for a collision between the adventuress and the treasure
-  if (hitTestRectangle(adventuress, treasure)) {
+  if (b.hitTestRectangle(adventuress, treasure)) {
 
     //If the treasure is touching the adventuress, center it over the adventuress
     treasure.x = adventuress.x + 8;
@@ -315,7 +319,7 @@ function play() {
 
   //If the adventuress has brought the treasure to the exit,
   //end the game and display "You won!"
-  if (hitTestRectangle(treasure, door)) {
+  if (b.hitTestRectangle(treasure, door)) {
     state = end;
     message.text = "You won!";
   }
@@ -324,35 +328,6 @@ function play() {
 function end() {
   gameScene.visible = false;
   gameOverScene.visible = true;
-}
-
-//The hitTestRectangle function
-function hitTestRectangle(r1, r2) {
-
-  //Calculate `centerX` and `centerY` properties on the sprites
-  r1.centerX = r1.x + r1.width / 2;
-  r1.centerY = r1.y + r1.height / 2;
-  r2.centerX = r2.x + r2.width / 2;
-  r2.centerY = r2.y + r2.height / 2;
-
-  //Calculate the `halfWidth` and `halfHeight` properties of the sprites
-  r1.halfWidth = r1.width / 2;
-  r1.halfHeight = r1.height / 2;
-  r2.halfWidth = r2.width / 2;
-  r2.halfHeight = r2.height / 2;
-
-  //Create a `collision` variable that will tell us
-  //if a collision is occurring
-  var collision = false;
-
-  //Check whether the shapes of the sprites are overlapping. If they
-  //are, set `collision` to `true`
-  if (Math.abs(r1.centerX - r2.centerX) < r1.halfWidth + r2.halfWidth && Math.abs(r1.centerY - r2.centerY) < r1.halfHeight + r2.halfHeight) {
-    collision = true;
-  }
-
-  //Return the value of `collision` back to the main program
-  return collision;
 }
 
 //The `randomInt` helper function

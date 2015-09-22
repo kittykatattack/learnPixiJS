@@ -4,6 +4,7 @@
 var Container = PIXI.Container,
     autoDetectRenderer = PIXI.autoDetectRenderer,
     loader = PIXI.loader,
+    resources = PIXI.loader.resources,
     TextureCache = PIXI.utils.TextureCache,
     Texture = PIXI.Texture,
     Sprite = PIXI.Sprite,
@@ -28,17 +29,21 @@ var state = play;
 //Define any variables that are used in more than one function
 var cat = undefined,
     hedgehog = undefined,
-    tiger = undefined;
+    tiger = undefined,
+    id = undefined;
 
 function setup() {
 
-  cat = Sprite.fromFrame("cat.png");
+  //An alias for the texture atlas frame ids
+  id = resources["images/animals.json"].textures;
+
+  cat = new Sprite(id["cat.png"]);
   cat.position.set(64, 64);
   cat.scale.set(2, 2);
   stage.addChild(cat);
 
-  var filter = new PIXI.filters.AsciiFilter();
-  //filter.blur = 20;
+  var filter = new PIXI.filters.BlurFilter();
+  filter.blur = 20;
   cat.filters = [filter];
 
   //Start the game loop

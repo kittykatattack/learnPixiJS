@@ -2,6 +2,7 @@
 let Container = PIXI.Container,
   autoDetectRenderer = PIXI.autoDetectRenderer,
   loader = PIXI.loader,
+  resources = PIXI.loader.resources,
   TextureCache = PIXI.utils.TextureCache,
   Texture = PIXI.Texture,
   Sprite = PIXI.Sprite,
@@ -25,12 +26,15 @@ loader
 let state = play;
 
 //Define any variables that are used in more than one function
-let cat;
+let cat, id;
 
 function setup() {
 
+  //An alias for the texture atlas frame ids
+  id = resources["images/animals.json"].textures;
+
   //Make a sprite
-  cat = Sprite.fromFrame("cat.png");
+  cat = new Sprite(id["cat.png"]);
   cat.position.set(32, 32);
   cat.scale.set(3, 3);
   stage.addChild(cat);

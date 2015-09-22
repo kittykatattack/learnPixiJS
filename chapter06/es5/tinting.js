@@ -4,6 +4,7 @@
 var Container = PIXI.Container,
     autoDetectRenderer = PIXI.autoDetectRenderer,
     loader = PIXI.loader,
+    resources = PIXI.loader.resources,
     TextureCache = PIXI.utils.TextureCache,
     Texture = PIXI.Texture,
     Sprite = PIXI.Sprite,
@@ -28,19 +29,23 @@ var state = play;
 //Define any variables that are used in more than one function
 var cat = undefined,
     hedgehog = undefined,
-    tiger = undefined;
+    tiger = undefined,
+    id = undefined;
 
 function setup() {
 
-  cat = Sprite.fromFrame("cat.png");
+  //An alias for the texture atlas frame ids
+  id = resources["images/animals.json"].textures;
+
+  cat = new Sprite(id["cat.png"]);
   cat.position.set(32, 32);
   stage.addChild(cat);
 
-  hedgehog = Sprite.fromFrame("hedgehog.png");
+  hedgehog = new Sprite(id["hedgehog.png"]);
   hedgehog.position.set(96, 96);
   stage.addChild(hedgehog);
 
-  tiger = Sprite.fromFrame("tiger.png");
+  tiger = new Sprite(id["tiger.png"]);
   tiger.position.set(160, 160);
   stage.addChild(tiger);
 

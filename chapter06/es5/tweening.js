@@ -33,13 +33,28 @@ var pixie = undefined,
 function setup() {
 
   //Create a new instance of Charm
-  c = new Charm();
-
+  c = new Charm(PIXI);
   pixie = new Sprite(resources["images/pixie96x48.png"].texture);
   pixie.position.set(32, 32);
   stage.addChild(pixie);
 
   /* Tween effects */
+
+  //Selectively un-comment the tween effects below to observe their
+  //effects. The first, slide, is a fun one!
+
+  //Slide
+  var slidePixie = c.slide(pixie, 128, 128, 120, "smoothstep", true);
+  slidePixie.onComplete = function () {
+    return console.log("Pixie slide complete");
+  };
+
+  //Add some bounce to the slide like this (Make sure to comment-out
+  //the 2 lines of code above first):
+  /*
+  let slidePixie = c.slide(pixie, 128, 128, 120, "bounce 10 -10", true);
+  slidePixie.onComplete = () => console.log("Pixie slide complete");
+  */
 
   //Fade out
   //c.fadeOut(pixie);
@@ -51,11 +66,6 @@ function setup() {
   //Pulse
   //c.pulse(pixie, 30, 0.2);
 
-  //Slide
-  /*
-  let slidePixie = c.slide(pixie, 128, 128, 120, "bounce 10 -10", true);
-  slidePixie.onComplete = () => console.log("Pixie slide complete");
-  */
   //followCurve
   /*
   pixie.position.set(64, 160);
@@ -78,9 +88,9 @@ function setup() {
   );
   pixieBezier.onComplete = () => console.log("Cat Bezier complete")
   */
+
   //Breathe
   //Set the pixie's anchor point to the center
-
   /*
   pixie.anchor.set(0.5, 0.5);
   pixie.position.set(64, 64);
@@ -117,13 +127,12 @@ function gameLoop() {
   //Run the current state
   state();
 
+  //Update all the tweens
+  c.update();
+
   //Render the stage
   renderer.render(stage);
 }
 
-function play() {
-
-  //Update all the tweens
-  c.update();
-}
+function play() {}
 //# sourceMappingURL=tweening.js.map

@@ -4,11 +4,11 @@
 var Container = PIXI.Container,
     autoDetectRenderer = PIXI.autoDetectRenderer,
     loader = PIXI.loader,
-    resources = PIXI.loader.resources,
     TextureCache = PIXI.utils.TextureCache,
     Texture = PIXI.Texture,
     Sprite = PIXI.Sprite,
     RenderTexture = PIXI.RenderTexture,
+    resources = PIXI.loader.resources,
     TilingSprite = PIXI.extras.TilingSprite;
 
 //Create a Pixi stage and renderer
@@ -21,42 +21,29 @@ renderer.view.style.border = "1px dashed black";
 renderer.backgroundColor = "0xFFFFFF";
 
 //load resources (images and fonts)
-loader.add("images/animals.json").load(setup);
+loader.add("video/how.mp4").load(setup);
 
 //Set the initial game state
 var state = play;
 
-//Define any variables that are used in more than one function
-var cat = undefined,
-    hedgehog = undefined,
-    tiger = undefined,
-    id = undefined;
-
 function setup() {
 
-  //An alias for the texture atlas frame ids
-  id = resources["images/animals.json"].textures;
+  console.log("loaded");
 
-  cat = new Sprite(id["cat.png"]);
-  cat.position.set(32, 32);
-  cat.scale.set(2, 2);
-  cat.alpha = 0.5;
-  cat.blendMode = PIXI.BLEND_MODES.MULTIPLY;
-  stage.addChild(cat);
+  var videoTexture = new PIXI.VideoBaseTexture.fromUrl("video/how.mp4");
+  var video = new Sprite(videoTexture);
+  stage.addChild(video);
 
-  hedgehog = new Sprite(id["hedgehog.png"]);
-  hedgehog.position.set(64, 64);
-  hedgehog.scale.set(2, 2);
-  hedgehog.alpha = 0.5;
-  hedgehog.blendMode = PIXI.BLEND_MODES.MULTIPLY;
-  stage.addChild(hedgehog);
-
-  tiger = new Sprite(id["tiger.png"]);
-  tiger.position.set(96, 96);
-  tiger.scale.set(2, 2);
-  tiger.alpha = 0.5;
-  tiger.blendMode = PIXI.BLEND_MODES.MULTIPLY;
-  stage.addChild(tiger);
+  var videoSource = videoTexture.baseTexture.source;
+  videoSource.play();
+  /* 
+   let videoTexture = Texture.fromVideo("video/how.mp4");
+   let videoSprite = new Sprite(videoTexture);
+   stage.addChild(videoSprite);
+   
+    let videoSource = videoTexture.baseTexture.source;
+   videoSource.play();
+   */
 
   //Start the game loop
   gameLoop();
@@ -69,10 +56,9 @@ function gameLoop() {
 
   //Run the current state
   state();
-
   //Render the stage
   renderer.render(stage);
 }
 
 function play() {}
-//# sourceMappingURL=blendModes.js.map
+//# sourceMappingURL=video.js.map
