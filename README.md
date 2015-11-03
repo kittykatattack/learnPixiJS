@@ -53,12 +53,12 @@ launch one for you automatically, directly from the editor, when you
 use it to open an HTML file in the browser. 
 
 Or you could launch a web server directly from the command line using
-(http-server)[https://github.com/indexzero/http-server]. After the server starts, navigate to
+[http-server](https://github.com/indexzero/http-server). After the server starts, navigate to
 `http://localhost:8080/` in your browser and you'll be able to
 interact with working versions of all the example files in the book.  
 
 Keeping up with Pixi
 --------------------
 
-Pixi is an actively developed library, so make sure you (keep an eye on
-Pixi's code repository)[https://github.com/pixijs/pixi.js] for any changes to the API. 
+Pixi is an actively developed library, so make sure you [keep an eye on
+Pixi's code repository](https://github.com/pixijs/pixi.js) for any changes to the API. 
