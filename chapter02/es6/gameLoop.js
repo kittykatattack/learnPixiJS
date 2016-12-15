@@ -26,7 +26,7 @@ let pixie;
 function setup() {
 
   //Create the `pixie` sprite 
-  pixie = new Sprite(resources["images/pixie96x48.png"]);
+  pixie = new Sprite(resources["images/pixie96x48.png"].texture);
 
   //Center the sprite vertically on the stage
   pixie.y = renderer.view.height / 2 - pixie.height / 2; 
