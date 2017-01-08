@@ -62,3 +62,31 @@ Keeping up with Pixi
 
 Pixi is an actively developed library, so make sure you [keep an eye on
 Pixi's code repository](https://github.com/pixijs/pixi.js) for any changes to the API. 
+
+Important changes for Pixi v4.x users!
+--------------------------------------
+
+If are using Pixi v4, there are a few small but significant API changes that impact
+some of the published code in "Learn Pixi JS"
+
+The `generateTexture` method is now a property of the renderer, no a Pixi Sprite.
+That means you now need to use `generateTexture` like this:
+```
+let renderer = PIXI.autoDetectRenderer(800, 600,{backgroundColor : 0x1099bb});
+let texture = renderer.generateTexture(sprite);
+```
+
+Because of this change the [`SpriteUtilities`] (https://github.com/kittykatattack/spriteUtilities) 
+used in "Learn Pixi JS" now requires a reference to Pixi's `renderer` as the second argument in the constructor:
+```
+let renderer = PIXI.autoDetectRenderer(800, 600,{backgroundColor : 0x1099bb});
+let u = new SpriteUtilities(PIXI, renderer);
+```
+
+`RenderTexture` has also changed. Here's the new API:
+```
+var renderTexture = RenderTexture.create(100, 100);
+renderer.render(mySprite, renderTexture);
+```
+
+You can find out more about some of the changes in Pixi v4 here: http://www.goodboydigital.com/pixi-js-v4/
